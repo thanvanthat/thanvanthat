@@ -1,0 +1,6 @@
+# Local-only: regenerate the ASCII portrait when the photo changes
+-r requirements.txt
+pillow
+numpy
+opencv-python-headless
+rembg

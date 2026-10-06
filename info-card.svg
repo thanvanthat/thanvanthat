@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 524" width="660" height="524" role="img" aria-label="thanvanth@github info card">
+<style>
+  .ln { opacity: 0; animation: in 0.45s ease-out forwards; }
+  @keyframes in { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: none; } }
+  text { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size: 17px; }
+</style>
+<rect x="1" y="1" width="658" height="522" rx="12" fill="#0d1117" stroke="#30363d"/>
+<path d="M1 13a12 12 0 0 1 12-12h634a12 12 0 0 1 12 12v23H1z" fill="#161b22"/>
+<line x1="1" y1="36" x2="659" y2="36" stroke="#30363d"/>
+<circle cx="22" cy="18.5" r="6" fill="#ff5f56"/>
+<circle cx="42" cy="18.5" r="6" fill="#ffbd2e"/>
+<circle cx="62" cy="18.5" r="6" fill="#27c93f"/>
+<text x="330" y="24" text-anchor="middle" fill="#8b949e" style="font-size:14px">thanvanth@github — neofetch</text>
+<g class="ln" style="animation-delay:0.00s"><text x="28" y="68"><tspan fill="#7ee787" font-weight="bold">thanvanth</tspan><tspan fill="#c9d1d9">@</tspan><tspan fill="#7ee787" font-weight="bold">github</tspan></text><text x="28" y="86" fill="#8b949e">----------------</text></g>
+<g class="ln" style="animation-delay:0.12s"><text x="28" y="116"><tspan fill="#ff7b72" font-weight="bold">Name</tspan><tspan fill="#8b949e">:</tspan></text><text x="120" y="116" fill="#c9d1d9">Thanvanth AT</text></g>
+<g class="ln" style="animation-delay:0.24s"><text x="28" y="146"><tspan fill="#ffa657" font-weight="bold">Role</tspan><tspan fill="#8b949e">:</tspan></text><text x="120" y="146" fill="#c9d1d9">Student @ SNS College of Technology</text></g>
+<g class="ln" style="animation-delay:0.36s"><text x="28" y="176"><tspan fill="#d2a8ff" font-weight="bold">Goal</tspan><tspan fill="#8b949e">:</tspan></text><text x="120" y="176" fill="#c9d1d9">Aspiring Game Developer</text></g>
+<g class="ln" style="animation-delay:0.48s"><text x="28" y="206"><tspan fill="#79c0ff" font-weight="bold">Loc</tspan><tspan fill="#8b949e">:</tspan></text><text x="120" y="206" fill="#c9d1d9">Trichy, India</text></g>
+<g class="ln" style="animation-delay:0.60s"><text x="28" y="236"><tspan fill="#7ee787" font-weight="bold">Stack</tspan><tspan fill="#8b949e">:</tspan></text><text x="120" y="236" fill="#c9d1d9">C++ · TypeScript · JavaScript</text></g>
+<g class="ln" style="animation-delay:0.72s"><text x="28" y="266"><tspan fill="#f2cc60" font-weight="bold">Engine</tspan><tspan fill="#8b949e">:</tspan></text><text x="120" y="266" fill="#c9d1d9">Unreal Engine</text></g>
+<g class="ln" style="animation-delay:0.96s"><text x="28" y="326"><tspan fill="#ff7b72" font-weight="bold">Built</tspan><tspan fill="#8b949e">:</tspan></text><text x="120" y="326" fill="#c9d1d9">Fresora AI · GrantPilot</text></g>
+<g class="ln" style="animation-delay:1.08s"><text x="28" y="356"></text><text x="120" y="356" fill="#c9d1d9">board-app · cinimatic (Unreal)</text></g>
+<g class="ln" style="animation-delay:1.20s"><text x="28" y="386"></text><text x="120" y="386" fill="#c9d1d9">LeetCode solutions in C++</text></g>
+<g class="ln" style="animation-delay:1.44s"><text x="28" y="446"><tspan fill="#ffa657" font-weight="bold">Social</tspan><tspan fill="#8b949e">:</tspan></text><text x="120" y="446" fill="#c9d1d9">@thanvanth_ox</text></g>
+<g class="ln" style="animation-delay:1.56s"><rect x="28" y="472" width="30" height="16" rx="3" fill="#ff7b72"/><rect x="62" y="472" width="30" height="16" rx="3" fill="#ffa657"/><rect x="96" y="472" width="30" height="16" rx="3" fill="#f2cc60"/><rect x="130" y="472" width="30" height="16" rx="3" fill="#7ee787"/><rect x="164" y="472" width="30" height="16" rx="3" fill="#79c0ff"/><rect x="198" y="472" width="30" height="16" rx="3" fill="#d2a8ff"/><rect x="232" y="472" width="30" height="16" rx="3" fill="#c9d1d9"/></g>
+</svg>

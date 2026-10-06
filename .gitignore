@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+# raw photos stay local; only the generated SVG is committed
+source-photo.*
+source-prepped.png
