@@ -1,9 +1,10 @@
-"""Render data/contributions.json as an animated 53x7 contribution heatmap.
+"""Render data/contributions.json as an animated contribution heatmap of the
+last WEEKS weeks.
 
     python scripts/render_heatmap_svg.py        # writes contrib-heatmap.svg
     STATIC=1 python scripts/render_heatmap_svg.py
 
-Without a data file it draws an empty year, so the README never shows a
+Without a data file it draws an empty grid, so the README never shows a
 broken image before the first workflow run.
 """
 import json
@@ -18,18 +19,23 @@ OUT = ROOT / "contrib-heatmap.svg"
 PALETTE = ["#161b22", "#0e4429", "#006d32",
            "#26a641", "#39d353", "#69f0a0"]
 #          none -> brightest (level 5 is a neon top end)
-CELL, GAP = 13, 3
+WEEKS = 26            # window shown: ~6 months, ending this week
+SPAN = f"{round(WEEKS / 4.35)} months"
+TARGET_W = 860        # cells grow to fill this width (matches the README)
+GAP, LEGEND_CELL = 4, 13
 LEFT, TOP = 34, 30
 BG, FG, DIM, BORDER = "#0d1117", "#c9d1d9", "#8b949e", "#30363d"
 DIAG_STEP, DUR = 0.025, 0.5  # seconds
 
 
 def load_days() -> list[dict]:
-    if DATA.exists():
-        return json.loads(DATA.read_text())["days"]
-    end = date.today()
-    start = end - timedelta(days=364 + (end.weekday() + 1) % 7)
-    return [{"date": (start + timedelta(i)).isoformat(), "count": 0}
+    """Days in the window: WEEKS Sunday-start weeks ending this week."""
+    days = json.loads(DATA.read_text())["days"] if DATA.exists() else []
+    end = date.fromisoformat(days[-1]["date"]) if days else date.today()
+    start = end - timedelta(days=(end.weekday() + 1) % 7 + (WEEKS - 1) * 7)
+    counts = {d["date"]: d["count"] for d in days}
+    return [{"date": (start + timedelta(i)).isoformat(),
+             "count": counts.get((start + timedelta(i)).isoformat(), 0)}
             for i in range((end - start).days + 1)]
 
 
@@ -44,10 +50,16 @@ def assign_levels(days: list[dict]) -> None:
 
 
 def stats(days: list[dict]) -> dict:
-    if DATA.exists():
-        raw = json.loads(DATA.read_text())
-        return {k: raw[k] for k in ("total", "current_streak", "longest_streak", "best_day")}
-    return {"total": 0, "current_streak": 0, "longest_streak": 0, "best_day": {"count": 0, "date": ""}}
+    """Totals and longest streak for the window; the current streak comes
+    from the full fetched history so the window can't cut it short."""
+    longest = run = 0
+    for d in days:
+        run = run + 1 if d["count"] > 0 else 0
+        longest = max(longest, run)
+    best = max(days, key=lambda d: d["count"])
+    current = json.loads(DATA.read_text())["current_streak"] if DATA.exists() else 0
+    return {"total": sum(d["count"] for d in days), "current_streak": current,
+            "longest_streak": longest, "best_day": {"count": best["count"], "date": best["date"]}}
 
 
 def build_svg(days: list[dict], st: dict, static: bool) -> str:
@@ -55,6 +67,7 @@ def build_svg(days: list[dict], st: dict, static: bool) -> str:
     first = date.fromisoformat(days[0]["date"])
     lead = (first.weekday() + 1) % 7  # GitHub weeks start on Sunday
     weeks = (lead + len(days) + 6) // 7
+    CELL = (TARGET_W - LEFT - 20 + GAP) // weeks - GAP
     grid_w = weeks * (CELL + GAP) - GAP
     grid_h = 7 * (CELL + GAP) - GAP
     W = LEFT + grid_w + 20
@@ -72,7 +85,7 @@ def build_svg(days: list[dict], st: dict, static: bool) -> str:
     )
     out = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
-        f'role="img" aria-label="{st["total"]} contributions in the last year">',
+        f'role="img" aria-label="{st["total"]} contributions in the last {SPAN}">',
         f"<style>{css}\n  text {{ font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;"
         f" font-size: 11px; fill: {DIM}; }}\n</style>",
         f'<rect x=".5" y=".5" width="{W - 1}" height="{H - 1}" rx="10" fill="{BG}" stroke="{BORDER}"/>',
@@ -92,22 +105,23 @@ def build_svg(days: list[dict], st: dict, static: bool) -> str:
                 out.append(f'<text x="{x}" y="{TOP - 9}">{month}</text>')
                 last_month = month
         cls = "c" if static else f"c d{wk + dow}"
-        out.append(f'<rect class="{cls}" x="{x}" y="{y}" width="{CELL}" height="{CELL}" rx="3" '
+        out.append(f'<rect class="{cls}" x="{x}" y="{y}" width="{CELL}" height="{CELL}" rx="5" '
                    f'fill="{PALETTE[d["lvl"]]}"><title>{d["count"]} on {d["date"]}</title></rect>')
 
     fy = TOP + grid_h + 30
     best = st["best_day"]
-    summary = (f'<tspan fill="{FG}" font-weight="bold">{st["total"]:,}</tspan> contributions in the last year'
+    summary = (f'<tspan fill="{FG}" font-weight="bold">{st["total"]:,}</tspan> contributions in the last {SPAN}'
                f'  ·  streak <tspan fill="{FG}">{st["current_streak"]}d</tspan>'
                f'  ·  longest <tspan fill="{FG}">{st["longest_streak"]}d</tspan>'
                + (f'  ·  best <tspan fill="{FG}">{best["count"]}</tspan> on {best["date"]}' if best["count"] else ""))
-    legend_x = LEFT + grid_w - (len(PALETTE) * (CELL + GAP)) - 30
-    legend = "".join(f'<rect x="{legend_x + 4 + j * (CELL + GAP)}" y="{fy + 24 - CELL + 2}" width="{CELL}" '
-                     f'height="{CELL}" rx="3" fill="{c}"/>' for j, c in enumerate(PALETTE))
+    LC = LEGEND_CELL
+    legend_x = LEFT + grid_w - (len(PALETTE) * (LC + 3)) - 30
+    legend = "".join(f'<rect x="{legend_x + 4 + j * (LC + 3)}" y="{fy + 24 - LC + 2}" width="{LC}" '
+                     f'height="{LC}" rx="3" fill="{c}"/>' for j, c in enumerate(PALETTE))
     out.append(f'<g class="{"" if static else "ft"}">'
                f'<text x="{LEFT}" y="{fy}">{summary}</text>'
                f'<text x="{legend_x}" y="{fy + 24}" text-anchor="end">Less</text>{legend}'
-               f'<text x="{legend_x + 8 + len(PALETTE) * (CELL + GAP)}" y="{fy + 24}">More</text>'
+               f'<text x="{legend_x + 8 + len(PALETTE) * (LC + 3)}" y="{fy + 24}">More</text>'
                f'<text x="{LEFT}" y="{fy + 24}" style="font-size:10px">$ updated daily by GitHub Actions</text></g>')
     out.append("</svg>")
     return "\n".join(out) + "\n"
