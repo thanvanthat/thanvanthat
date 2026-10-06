@@ -2,11 +2,13 @@
 itself in row by row (SMIL, plays once, then freezes).
 
     python scripts/make_ascii_svg.py            # writes ascii-portrait.svg
+    python scripts/make_ascii_svg.py img.png    # convert any image directly
 
-With no source-prepped.png present, the INITIALS from config.py are drawn
+With no argument and no source-prepped.png present, the INITIALS from config.py are drawn
 instead so the README still has something to show.
 """
 import os
+import sys
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -93,11 +95,12 @@ def build_svg(lines: list[str], static: bool) -> str:
 
 
 def main() -> None:
-    img = Image.open(SRC) if SRC.exists() else fallback_image()
+    src = Path(sys.argv[1]) if len(sys.argv) > 1 else SRC
+    img = Image.open(src).convert("L") if src.exists() else fallback_image()
     lines = to_rows(img)
     OUT.write_text(build_svg(lines, static=os.environ.get("STATIC") == "1"))
     print(f"wrote {OUT.name} ({len(lines)} rows x {COLS} cols"
-          f"{'' if SRC.exists() else ', initials fallback'})")
+          f"{'' if src.exists() else ', initials fallback'})")
 
 
 if __name__ == "__main__":
