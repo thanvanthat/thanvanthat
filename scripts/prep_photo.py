@@ -1,5 +1,5 @@
 """Prep a photo for ASCII conversion: cut out the subject, boost local
-contrast, and flatten onto white.
+contrast, and keep the cut-out mask as alpha.
 
     python scripts/prep_photo.py source-photo.jpg   # writes source-prepped.png
 """
@@ -26,10 +26,8 @@ def main(src: str) -> None:
     clahe = cv2.createCLAHE(clipLimit=2.5, tileGridSize=(8, 8))
     gray = clahe.apply(gray)
 
-    # 3. Composite onto pure white so the background maps to spaces.
-    alpha = np.array(cut.split()[-1]).astype(np.float32) / 255.0
-    flat = gray.astype(np.float32) * alpha + 255.0 * (1.0 - alpha)
-    Image.fromarray(flat.clip(0, 255).astype(np.uint8), "L").save(OUT)
+    # 3. Keep the mask as alpha so the background maps to spaces.
+    Image.merge("LA", (Image.fromarray(gray, "L"), cut.split()[-1])).save(OUT)
     print(f"wrote {OUT.relative_to(ROOT)}")
 
 

@@ -46,12 +46,23 @@ def to_rows(img: Image.Image) -> list[str]:
     # Glyphs are ~twice as tall as wide, so halve the row count.
     rows = max(1, round(COLS * img.height / img.width * CHAR_W / LINE_H))
     px = np.asarray(img.convert("L").resize((COLS, rows), Image.LANCZOS), dtype=np.float32)
-    # Stretch contrast, then push near-white to pure white so the
-    # background collapses to the space glyph.
-    lo, hi = np.percentile(px, 2), np.percentile(px, 98)
-    px = ((px - lo) / max(hi - lo, 1)).clip(0, 1)
-    px[px > 0.92] = 1.0
-    idx = ((1.0 - px) * (len(RAMP) - 1)).round().astype(int)
+    if "A" in img.getbands():
+        # Cut-out subject (from prep_photo.py): the mask clears the
+        # background, and since glyphs are light on a dark card, bright
+        # areas get the dense glyphs so the portrait isn't a negative.
+        alpha = np.asarray(img.getchannel("A").resize((COLS, rows), Image.LANCZOS)) / 255.0
+        inside = alpha > 0.5
+        lo, hi = np.percentile(px[inside], 2), np.percentile(px[inside], 98)
+        px = ((px - lo) / max(hi - lo, 1)).clip(0, 1)
+        idx = (px * (len(RAMP) - 1)).round().astype(int).clip(1)  # min '.' keeps the silhouette
+        idx[~inside] = 0
+    else:
+        # Flat image: stretch contrast, then push near-white to pure white
+        # so the background collapses to the space glyph.
+        lo, hi = np.percentile(px, 2), np.percentile(px, 98)
+        px = ((px - lo) / max(hi - lo, 1)).clip(0, 1)
+        px[px > 0.92] = 1.0
+        idx = ((1.0 - px) * (len(RAMP) - 1)).round().astype(int)
     lines = ["".join(RAMP[i] for i in row) for row in idx]
     while lines and not lines[-1].strip():
         lines.pop()
@@ -96,7 +107,8 @@ def build_svg(lines: list[str], static: bool) -> str:
 
 def main() -> None:
     src = Path(sys.argv[1]) if len(sys.argv) > 1 else SRC
-    img = Image.open(src).convert("L") if src.exists() else fallback_image()
+    img = Image.open(src) if src.exists() else fallback_image()
+    img = img.convert("LA" if "A" in img.getbands() else "L")
     lines = to_rows(img)
     OUT.write_text(build_svg(lines, static=os.environ.get("STATIC") == "1"))
     print(f"wrote {OUT.name} ({len(lines)} rows x {COLS} cols"
