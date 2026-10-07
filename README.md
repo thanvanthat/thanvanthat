@@ -19,6 +19,12 @@
 
 <br>
 
+<h3><code>thanvanth@github ~ $ cat projects/fresora-ai/README.md</code></h3>
+<a href="https://github.com/thanvanthat/fresora-AI"><img src="./featured.svg" width="860" alt="Featured project: Fresora AI" /></a>
+<p><a href="https://fresora-web.vercel.app">Live app</a> · <a href="https://github.com/thanvanthat/fresora-AI">Repository</a></p>
+
+<br>
+
 <h3><code>thanvanth@github ~ $ cat stack.toml</code></h3>
 <img src="./stack.svg" width="860" alt="Tech stack" />
 
@@ -47,10 +53,11 @@ No token, no third-party stats service.
 | `contrib-heatmap.svg` | `scripts/fetch_contributions.py` → `scripts/render_heatmap_svg.py` | daily, by `.github/workflows/update-profile-art.yml` |
 | `ascii-portrait.svg` | `scripts/prep_photo.py` → `scripts/make_ascii_svg.py` | by hand, when the photo changes |
 | `info-card.svg` | `scripts/make_info_card.py` | by hand, when details change |
+| `featured.svg` | `scripts/make_featured.py` | by hand, when the project changes |
 | `headline.svg` | `scripts/make_headline.py` | by hand, when the lines change |
 | `stack.svg`, `badges/*.svg` | `scripts/make_badges.py` (icons: Simple Icons, `scripts/icons.json`) | by hand, when the stack or links change |
 
-Names, info-card rows, headline lines, stack and social links all live in `scripts/config.py`.
+Names, info-card rows, headline lines, featured project, stack and social links all live in `scripts/config.py`.
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
@@ -63,8 +70,8 @@ python scripts/fetch_contributions.py && python scripts/render_heatmap_svg.py
 pip install -r scripts/requirements-portrait.txt
 python scripts/prep_photo.py source-photo.jpg && python scripts/make_ascii_svg.py
 
-# info card, headline, stack + connect badges
-python scripts/make_info_card.py && python scripts/make_headline.py && python scripts/make_badges.py
+# info card, headline, stack + connect badges, featured project
+python scripts/make_info_card.py && python scripts/make_headline.py && python scripts/make_badges.py && python scripts/make_featured.py
 ```
 
 `STATIC=1` on any generator emits a frozen frame for previews.

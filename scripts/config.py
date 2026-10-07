@@ -47,3 +47,21 @@ SOCIALS = [
     ("instagram", "Instagram", "instagram", "https://instagram.com/thanvanth_ox"),
     ("email", "Email", "gmail", "mailto:thanvanthat24@gmail.com"),
 ]
+
+# Featured project panel (facts from the project's own README).
+FEATURED = {
+    "name": "Fresora AI",
+    "path": "~/projects/fresora-ai",
+    "tagline": "AI-assisted food freshness & zero-waste assistant",
+    "pipeline": ["SCAN", "IDENTIFY", "MEASURE", "SCORE", "RECOMMEND", "TRACK", "RESCUE"],
+    "bullets": [
+        "Measures the food surface with OpenCV: dark defects, colour consistency, hue drift, texture",
+        "Scores freshness 0-100 with a documented, deterministic formula, from Fresh to Spoiled",
+        "Identifies food with MobileNetV2 on ONNX Runtime: no TensorFlow, nothing to download",
+        "Zero-waste recipes that use what's about to spoil first, never anything assessed as spoiled",
+        "One React Native codebase: a 27-screen Expo app that also ships to the web",
+    ],
+    "tags": ["TypeScript", "React Native", "Expo", "FastAPI", "OpenCV", "ONNX Runtime", "Supabase", "Vercel"],
+    "links": [("Live app", "https://fresora-web.vercel.app"),
+              ("Repo", "https://github.com/thanvanthat/fresora-AI")],
+}
