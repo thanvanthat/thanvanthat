@@ -20,3 +20,30 @@ INFO_ROWS = [
     ("", ""),
     ("Social", "@thanvanth_ox"),
 ]
+
+# Lines the headline types out, one after another, on a loop.
+HEADLINE = [
+    "Hi, I'm Thanvanth",
+    "Aspiring Game Developer",
+    "C++ · Unreal Engine · TypeScript",
+    "Building Fresora AI & GrantPilot",
+]
+
+# Tech-stack badge rows: (category, [(label, simple-icons slug), ...]).
+# Icons come from scripts/icons.json (Simple Icons, CC0).
+STACK = [
+    ("languages", [("C++", "cplusplus"), ("TypeScript", "typescript"), ("JavaScript", "javascript"),
+                   ("Python", "python"), ("HTML5", "html5"), ("CSS", "css")]),
+    ("frontend", [("React", "react"), ("Tailwind CSS", "tailwindcss"), ("Vite", "vite")]),
+    ("mobile", [("React Native", "react"), ("Expo", "expo")]),
+    ("backend", [("FastAPI", "fastapi"), ("Supabase", "supabase"), ("Vercel", "vercel")]),
+    ("gamedev", [("Unreal Engine", "unrealengine")]),
+    ("tools", [("Git", "git"), ("GitHub", "github")]),
+]
+
+# Connect badges: (file name, label, simple-icons slug, link).
+SOCIALS = [
+    ("github", "GitHub", "github", "https://github.com/thanvanthat"),
+    ("instagram", "Instagram", "instagram", "https://instagram.com/thanvanth_ox"),
+    ("email", "Email", "gmail", "mailto:thanvanthat24@gmail.com"),
+]
