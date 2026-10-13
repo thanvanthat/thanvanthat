@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 168" width="420" height="168" role="img" aria-label="LeetCode Solutions: LeetCode problems solved in C++.">
+<style>text { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size: 12px; }</style>
+<rect x=".5" y=".5" width="419" height="167" rx="10" fill="#0d1117" stroke="#30363d"/>
+<path transform="translate(20 18)" fill="#8b949e" d="M0 2a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2z"/>
+<text x="44" y="30" fill="#79c0ff" font-weight="bold" style="font-size:15px">LeetCode Solutions</text>
+<text x="20" y="56" fill="#c9d1d9">LeetCode problems solved in C++.</text>
+<circle cx="25" cy="144" r="5" fill="#f34b7d"/><text x="36" y="148" fill="#8b949e">C++</text>
+</svg>

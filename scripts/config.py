@@ -65,3 +65,42 @@ FEATURED = {
     "links": [("Live app", "https://fresora-web.vercel.app"),
               ("Repo", "https://github.com/thanvanthat/fresora-AI")],
 }
+
+# Project cards (`ls ~/projects`), each linked to its repo. Facts come from
+# each repo's own README. (name, repo, language, description, tags, live URL or "", status)
+PROJECTS = [
+    ("Gilli", "Gilli", "C#",
+     "3D online Gilli-Danda. A C# engine with BEPU physics, compiled to WebAssembly, with "
+     "peer-to-peer multiplayer over WebRTC and no game server.",
+     ["C#", "WebAssembly", "Three.js", "TypeScript"], "https://gilli-rho.vercel.app", "play"),
+    ("Snakes & Ladders 3D", "snake-and-ladder-", "TypeScript",
+     "3D tabletop game with animated characters, snakes that bite and a real 3D die. "
+     "Fully offline: every asset is generated procedurally.",
+     ["React Three Fiber", "Three.js", "Vite"], "https://snakes-and-ladders-3d-psi.vercel.app", "play"),
+    ("Fresora AI", "fresora-AI", "TypeScript",
+     "Scan food, get a measured freshness score and use it before it's wasted. "
+     "OpenCV + MobileNetV2 backend with an Expo app.",
+     ["React Native", "FastAPI", "OpenCV"], "https://fresora-web.vercel.app", "live"),
+    ("GrantPilot AI", "GrantPilot-Frontend", "JavaScript",
+     "Grant and tender intelligence for Indian startups: discovery, bid-fit scoring, "
+     "proposal and compliance workspaces.",
+     ["React", "Vite", "Tailwind CSS"], "https://thanvanthat.github.io/GrantPilot-Frontend/", "live"),
+    ("PatchPulse", "Patchpulse", "Python",
+     "Turns player feedback from Steam, Discord and CSV into ranked themes, then traces "
+     "complaint spikes to the release that caused them.",
+     ["Python", "Postgres", "pgvector", "Redis"], "", "wip"),
+    ("Portfolio", "portfolio", "TypeScript",
+     "Cinematic portfolio built with Next.js, GSAP ScrollTrigger and React Three Fiber, "
+     "with a case study for each project.",
+     ["Next.js", "Tailwind CSS", "R3F"], "https://thanvanth.vercel.app", "live"),
+    ("cinimatic", "cinimatic", "Unreal Engine",
+     "A cinematic made with Unreal Engine.",
+     ["Unreal Engine"], "", ""),
+    ("Lumen Job Portal", "job-Appliction", "JavaScript",
+     "Front-end job portal demo with job-seeker and employer roles, a light/dark theme "
+     "and data kept in localStorage.",
+     ["HTML", "CSS", "JavaScript"], "", ""),
+    ("LeetCode Solutions", "leetcode-solutions", "C++",
+     "LeetCode problems solved in C++.",
+     ["C++"], "", ""),
+]

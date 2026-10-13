@@ -25,6 +25,33 @@
 
 <br>
 
+<h3><code>thanvanth@github ~ $ ls ~/projects</code></h3>
+<!-- projects:start -->
+<table>
+  <tr>
+    <td valign="top"><a href="https://github.com/thanvanthat/Gilli"><img src="./projects/Gilli.svg" width="420" alt="Gilli" /></a><br><sub><a href="https://gilli-rho.vercel.app">Play</a> · <a href="https://github.com/thanvanthat/Gilli">Repo</a></sub></td>
+    <td valign="top"><a href="https://github.com/thanvanthat/snake-and-ladder-"><img src="./projects/snake-and-ladder-.svg" width="420" alt="Snakes &amp; Ladders 3D" /></a><br><sub><a href="https://snakes-and-ladders-3d-psi.vercel.app">Play</a> · <a href="https://github.com/thanvanthat/snake-and-ladder-">Repo</a></sub></td>
+  </tr>
+  <tr>
+    <td valign="top"><a href="https://github.com/thanvanthat/fresora-AI"><img src="./projects/fresora-AI.svg" width="420" alt="Fresora AI" /></a><br><sub><a href="https://fresora-web.vercel.app">Live</a> · <a href="https://github.com/thanvanthat/fresora-AI">Repo</a></sub></td>
+    <td valign="top"><a href="https://github.com/thanvanthat/GrantPilot-Frontend"><img src="./projects/GrantPilot-Frontend.svg" width="420" alt="GrantPilot AI" /></a><br><sub><a href="https://thanvanthat.github.io/GrantPilot-Frontend/">Live</a> · <a href="https://github.com/thanvanthat/GrantPilot-Frontend">Repo</a></sub></td>
+  </tr>
+  <tr>
+    <td valign="top"><a href="https://github.com/thanvanthat/Patchpulse"><img src="./projects/Patchpulse.svg" width="420" alt="PatchPulse" /></a><br><sub><a href="https://github.com/thanvanthat/Patchpulse">Repo</a></sub></td>
+    <td valign="top"><a href="https://github.com/thanvanthat/portfolio"><img src="./projects/portfolio.svg" width="420" alt="Portfolio" /></a><br><sub><a href="https://thanvanth.vercel.app">Live</a> · <a href="https://github.com/thanvanthat/portfolio">Repo</a></sub></td>
+  </tr>
+  <tr>
+    <td valign="top"><a href="https://github.com/thanvanthat/cinimatic"><img src="./projects/cinimatic.svg" width="420" alt="cinimatic" /></a><br><sub><a href="https://github.com/thanvanthat/cinimatic">Repo</a></sub></td>
+    <td valign="top"><a href="https://github.com/thanvanthat/job-Appliction"><img src="./projects/job-Appliction.svg" width="420" alt="Lumen Job Portal" /></a><br><sub><a href="https://github.com/thanvanthat/job-Appliction">Repo</a></sub></td>
+  </tr>
+  <tr>
+    <td valign="top"><a href="https://github.com/thanvanthat/leetcode-solutions"><img src="./projects/leetcode-solutions.svg" width="420" alt="LeetCode Solutions" /></a><br><sub><a href="https://github.com/thanvanthat/leetcode-solutions">Repo</a></sub></td>
+  </tr>
+</table>
+<!-- projects:end -->
+
+<br>
+
 <h3><code>thanvanth@github ~ $ cat stack.toml</code></h3>
 <img src="./stack.svg" width="860" alt="Tech stack" />
 
@@ -54,10 +81,11 @@ No token, no third-party stats service.
 | `ascii-portrait.svg` | `scripts/prep_photo.py` → `scripts/make_ascii_svg.py` | by hand, when the photo changes |
 | `info-card.svg` | `scripts/make_info_card.py` | by hand, when details change |
 | `featured.svg` | `scripts/make_featured.py` | by hand, when the project changes |
+| `projects/*.svg` + README grid | `scripts/make_projects.py` | by hand, when projects change |
 | `headline.svg` | `scripts/make_headline.py` | by hand, when the lines change |
 | `stack.svg`, `badges/*.svg` | `scripts/make_badges.py` (icons: Simple Icons, `scripts/icons.json`) | by hand, when the stack or links change |
 
-Names, info-card rows, headline lines, featured project, stack and social links all live in `scripts/config.py`.
+Names, info-card rows, headline lines, featured project, project cards, stack and social links all live in `scripts/config.py`.
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
@@ -70,8 +98,8 @@ python scripts/fetch_contributions.py && python scripts/render_heatmap_svg.py
 pip install -r scripts/requirements-portrait.txt
 python scripts/prep_photo.py source-photo.jpg && python scripts/make_ascii_svg.py
 
-# info card, headline, stack + connect badges, featured project
-python scripts/make_info_card.py && python scripts/make_headline.py && python scripts/make_badges.py && python scripts/make_featured.py
+# info card, headline, stack + connect badges, featured project, project cards
+python scripts/make_info_card.py && python scripts/make_headline.py && python scripts/make_badges.py && python scripts/make_featured.py && python scripts/make_projects.py
 ```
 
 `STATIC=1` on any generator emits a frozen frame for previews.
