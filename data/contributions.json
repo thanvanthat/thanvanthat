@@ -1,9 +1,9 @@
 {
  "username": "thanvanthat",
- "fetched_at": "2026-11-12T15:23:31+00:00",
- "total": 149,
- "current_streak": 38,
- "longest_streak": 38,
+ "fetched_at": "2026-11-13T14:40:56+00:00",
+ "total": 150,
+ "current_streak": 39,
+ "longest_streak": 39,
  "best_day": {
   "date": "2026-10-07",
   "count": 12
@@ -21,7 +21,7 @@
   "2026-08": 0,
   "2026-09": 33,
   "2026-10": 98,
-  "2026-11": 11
+  "2026-11": 12
  },
  "days": [
   {
@@ -1866,6 +1866,11 @@
   },
   {
    "date": "2026-11-12",
+   "count": 1,
+   "level": 1
+  },
+  {
+   "date": "2026-11-13",
    "count": 0,
    "level": 0
   }
